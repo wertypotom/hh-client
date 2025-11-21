@@ -80,10 +80,12 @@ headhunter-frontend/
 ### Folder Structure Philosophy
 
 **Current Structure** (Landing Page Phase):
+
 - `app/components/` - Contains all landing page section components
 - `shared/` - Reusable UI primitives and utilities
 
 **Planned Structure** (Feature Development Phase):
+
 ```
 app/
 ├── (auth)/                       # Authentication pages group
@@ -135,17 +137,20 @@ app/
 ## 🛠️ Tech Stack
 
 ### Core Framework
+
 - **Next.js 16.0.2** - React framework with App Router
 - **React 19.2.0** - UI library (latest stable)
 - **TypeScript 5.x** - Type-safe JavaScript
 
 ### Styling
+
 - **Tailwind CSS 4.x** - Utility-first CSS framework (latest major version)
 - **PostCSS** - CSS processing with `@tailwindcss/postcss`
 - **CSS Variables** - Design tokens using OKLCH color space
 - **tw-animate-css 1.4.0** - Animation utilities
 
 ### UI Components & Utilities
+
 - **shadcn/ui** - Component system (New York style)
 - **Radix UI** - Headless UI primitives
   - `@radix-ui/react-slot` - Composition utility
@@ -155,15 +160,18 @@ app/
 - **tailwind-merge 3.4.0** - Merge Tailwind classes intelligently
 
 ### Development Tools
+
 - **ESLint 9.x** - Linting with flat config
   - `eslint-config-next` - Next.js specific rules
   - Core Web Vitals rules enabled
 - **TypeScript** - Strict mode enabled
 
 ### Analytics & Monitoring
+
 - **Vercel Analytics 1.5.0** - Performance and user analytics
 
 ### Fonts
+
 - **Inter** - Primary font family (Google Fonts)
 - **Geist Mono** - Monospace font (fallback configured)
 
@@ -175,21 +183,21 @@ app/
 
 ```typescript
 // ✅ Explicit type imports
-import type React from "react"
-import type { Metadata } from "next"
+import type React from 'react'
+import type { Metadata } from 'next'
 
 // ✅ Named exports for components
-export function ComponentName() { }
+export function ComponentName() {}
 
 // ✅ Default exports only for pages and layouts
-export default function Page() { }
+export default function Page() {}
 
 // ✅ Readonly props with explicit types
 export default function Layout({
   children,
 }: Readonly<{
   children: React.ReactNode
-}>) { }
+}>) {}
 
 // ✅ Type-safe component props with intersection types
 function Button({
@@ -201,7 +209,7 @@ function Button({
 }: React.ComponentProps<'button'> &
   VariantProps<typeof buttonVariants> & {
     asChild?: boolean
-  }) { }
+  }) {}
 ```
 
 ### Component Patterns
@@ -213,8 +221,10 @@ export function ServerComponent() {
 }
 
 // ✅ Functional components with arrow functions for utilities
-const buttonVariants = cva("base-classes", {
-  variants: { /* ... */ }
+const buttonVariants = cva('base-classes', {
+  variants: {
+    /* ... */
+  },
 })
 
 // ✅ Named function exports for components
@@ -256,7 +266,7 @@ import { cn } from '@/shared/utils'
 import { Header } from '@/app/components/header'
 
 // ✅ Grouped imports: React → Next.js → Third-party → Local
-import type React from "react"
+import type React from 'react'
 import Link from 'next/link'
 import { Sparkles } from 'lucide-react'
 import { Button } from '@/shared/ui'
@@ -302,11 +312,9 @@ const testimonials = [
 ]
 
 // ✅ Map over data in JSX
-{testimonials.map((item) => (
-  <div key={item.author}>
-    {/* ... */}
-  </div>
-))}
+{
+  testimonials.map((item) => <div key={item.author}>{/* ... */}</div>)
+}
 ```
 
 ---
@@ -331,6 +339,7 @@ const testimonials = [
 ```
 
 **Key Settings**:
+
 - Strict mode enabled
 - Path alias `@/` points to root
 - React JSX transform
@@ -339,6 +348,7 @@ const testimonials = [
 ### Next.js Configuration (`next.config.ts`)
 
 Currently using default Next.js 16 configuration. Future additions may include:
+
 - Image optimization domains
 - Environment variables
 - Redirects/rewrites for hh.ru integration
@@ -350,6 +360,7 @@ Currently using default Next.js 16 configuration. Future additions may include:
 **Approach**: CSS-first configuration using `@theme` directive in `globals.css`
 
 **Key Features**:
+
 - OKLCH color space for better color perception
 - CSS variables for theming (light/dark mode)
 - Custom design tokens
@@ -378,6 +389,7 @@ Currently using default Next.js 16 configuration. Future additions may include:
 ```
 
 **Customizations**:
+
 - New York style (more refined, modern aesthetic)
 - RSC (React Server Components) enabled
 - Custom aliases pointing to `shared/` directory
@@ -386,18 +398,19 @@ Currently using default Next.js 16 configuration. Future additions may include:
 ### ESLint Configuration (`eslint.config.mjs`)
 
 ```javascript
-import { defineConfig, globalIgnores } from "eslint/config";
-import nextVitals from "eslint-config-next/core-web-vitals";
-import nextTs from "eslint-config-next/typescript";
+import { defineConfig, globalIgnores } from 'eslint/config'
+import nextVitals from 'eslint-config-next/core-web-vitals'
+import nextTs from 'eslint-config-next/typescript'
 
 const eslintConfig = defineConfig([
   ...nextVitals,
   ...nextTs,
-  globalIgnores([".next/**", "out/**", "build/**", "next-env.d.ts"]),
-]);
+  globalIgnores(['.next/**', 'out/**', 'build/**', 'next-env.d.ts']),
+])
 ```
 
 **Features**:
+
 - Flat config format (ESLint 9+)
 - Next.js Core Web Vitals rules
 - TypeScript support
@@ -412,6 +425,7 @@ const eslintConfig = defineConfig([
 **Primary Brand Color**: `#D6001C` (hh.ru red)
 
 **Design Tokens** (CSS Variables in OKLCH):
+
 - `--background` / `--foreground` - Base colors
 - `--primary` / `--primary-foreground` - Primary actions
 - `--secondary` / `--secondary-foreground` - Secondary actions
@@ -438,31 +452,28 @@ const eslintConfig = defineConfig([
 ### Component Variants (CVA Pattern)
 
 ```typescript
-const buttonVariants = cva(
-  "base-classes",
-  {
-    variants: {
-      variant: {
-        default: "...",
-        destructive: "...",
-        outline: "...",
-        secondary: "...",
-        ghost: "...",
-        link: "...",
-      },
-      size: {
-        default: "h-9 px-4 py-2",
-        sm: "h-8 px-3",
-        lg: "h-10 px-6",
-        icon: "size-9",
-      },
+const buttonVariants = cva('base-classes', {
+  variants: {
+    variant: {
+      default: '...',
+      destructive: '...',
+      outline: '...',
+      secondary: '...',
+      ghost: '...',
+      link: '...',
     },
-    defaultVariants: {
-      variant: "default",
-      size: "default",
+    size: {
+      default: 'h-9 px-4 py-2',
+      sm: 'h-8 px-3',
+      lg: 'h-10 px-6',
+      icon: 'size-9',
     },
-  }
-)
+  },
+  defaultVariants: {
+    variant: 'default',
+    size: 'default',
+  },
+})
 ```
 
 ---
@@ -552,6 +563,7 @@ npm run dev
 ### Adding New Components
 
 1. **Shared UI Component** (pure, reusable):
+
    ```bash
    # Create in shared/ui/
    touch shared/ui/new-component.tsx
@@ -560,6 +572,7 @@ npm run dev
    ```
 
 2. **Page-Specific Component**:
+
    ```bash
    # Create in app/components/
    touch app/components/new-section.tsx
@@ -663,67 +676,80 @@ OPENAI_API_KEY=
 Based on this project's architecture, here are recommended additions:
 
 ### 1. **Testing Infrastructure**
+
 ```bash
 npm install -D @testing-library/react @testing-library/jest-dom jest jest-environment-jsdom
 npm install -D @playwright/test  # E2E testing
 ```
 
 ### 2. **Form Handling**
+
 ```bash
 npm install react-hook-form zod @hookform/resolvers
 ```
 
 ### 3. **Data Fetching**
+
 ```bash
 npm install @tanstack/react-query  # For client-side data fetching
 ```
 
 ### 4. **State Management** (when needed)
+
 ```bash
 npm install zustand  # Lightweight state management
 ```
 
 ### 5. **API Client**
+
 ```bash
 npm install axios  # Or use native fetch with wrappers
 ```
 
 ### 6. **Date Handling**
+
 ```bash
 npm install date-fns  # Lightweight date utilities
 ```
 
 ### 7. **Validation**
+
 ```bash
 npm install zod  # TypeScript-first schema validation
 ```
 
 ### 8. **Animation**
+
 ```bash
 npm install framer-motion  # Advanced animations
 ```
 
 ### 9. **Internationalization** (if needed)
+
 ```bash
 npm install next-intl  # i18n for Next.js
 ```
 
 ### 10. **Error Tracking**
+
 ```bash
 npm install @sentry/nextjs  # Error monitoring
 ```
 
 ### 11. **Environment Variables Validation**
+
 ```bash
 npm install @t3-oss/env-nextjs zod  # Type-safe env vars
 ```
 
 ### 12. **Database ORM** (when backend is added)
+
 ```bash
 npm install prisma @prisma/client  # Database ORM
 ```
 
 ### 13. **Authentication** (when needed)
+
 ```bash
 npm install next-auth  # Authentication for Next.js
 ```
@@ -766,37 +792,44 @@ tests/
 ## 📚 Key Concepts for AI Understanding
 
 ### 1. **Server Components First**
+
 - All components are server components by default
 - No `"use client"` directive means server-side rendering
 - Client components only when interactivity is needed
 
 ### 2. **File-Based Routing**
+
 - `app/page.tsx` → `/`
 - `app/about/page.tsx` → `/about`
 - `app/(group)/page.tsx` → `/` (route groups don't affect URL)
 
 ### 3. **Layouts & Templates**
+
 - `layout.tsx` - Persistent UI across routes
 - `template.tsx` - Re-renders on navigation
 - Nested layouts supported
 
 ### 4. **Data Fetching**
+
 - Server Components can be `async`
 - Fetch data directly in components
 - No need for `getServerSideProps` or `getStaticProps`
 
 ### 5. **Styling Approach**
+
 - Tailwind CSS 4 with CSS-first configuration
 - Design tokens via CSS variables
 - OKLCH color space for better color accuracy
 - No separate Tailwind config file needed
 
 ### 6. **Component Composition**
+
 - Radix UI Slot for polymorphic components
 - CVA for variant management
 - `cn()` utility for class merging
 
 ### 7. **Type Safety**
+
 - Strict TypeScript mode
 - Explicit type imports
 - No implicit `any`
@@ -810,11 +843,11 @@ tests/
 
 ```typescript
 // ✅ Named exports for components
-export function Header() { }
-export function Button() { }
+export function Header() {}
+export function Button() {}
 
 // ✅ Default export only for pages/layouts
-export default function Page() { }
+export default function Page() {}
 ```
 
 ### Barrel Exports
@@ -832,13 +865,13 @@ import { Button, Card } from '@/shared/ui'
 
 ```typescript
 // ✅ Use design tokens
-className='bg-background text-foreground'
+className = 'bg-background text-foreground'
 
 // ✅ Custom brand colors
-className='text-[#D6001C]'  // hh.ru red
+className = 'text-[#D6001C]' // hh.ru red
 
 // ✅ Responsive with tokens
-className='bg-muted hover:bg-accent'
+className = 'bg-muted hover:bg-accent'
 ```
 
 ### Component Variants with CVA
@@ -846,12 +879,12 @@ className='bg-muted hover:bg-accent'
 ```typescript
 import { cva, type VariantProps } from 'class-variance-authority'
 
-const variants = cva("base", {
+const variants = cva('base', {
   variants: {
-    variant: { default: "...", outline: "..." },
-    size: { sm: "...", md: "...", lg: "..." }
+    variant: { default: '...', outline: '...' },
+    size: { sm: '...', md: '...', lg: '...' },
   },
-  defaultVariants: { variant: "default", size: "md" }
+  defaultVariants: { variant: 'default', size: 'md' },
 })
 
 type Props = VariantProps<typeof variants>
@@ -862,6 +895,7 @@ type Props = VariantProps<typeof variants>
 ## 🚧 Current Limitations & TODOs
 
 ### Current State
+
 - ✅ Landing page implemented
 - ✅ Responsive design
 - ✅ Dark mode support
@@ -869,6 +903,7 @@ type Props = VariantProps<typeof variants>
 - ✅ Type-safe codebase
 
 ### Pending Implementation
+
 - ⏳ hh.ru API integration
 - ⏳ Authentication system
 - ⏳ Resume editor
