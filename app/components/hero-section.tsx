@@ -1,5 +1,6 @@
 // app/components/hero-section.tsx
-import { ConnectButton } from "@/shared/ui";
+import { Button } from "@/shared/ui";
+import { HHLoginButton } from "./hh-login-button.tsx";
 
 export function HeroSection() {
   return (
@@ -16,13 +17,7 @@ export function HeroSection() {
               recruiters.
             </p>
             <div>
-              <ConnectButton
-                integration="hh"
-                size="lg"
-                className="bg-[#D6001C] text-white hover:bg-[#B8001A] px-8"
-              >
-                Optimize My hh.ru Profile
-              </ConnectButton>
+              <HHLoginButton>Optimize My hh.ru Profile</HHLoginButton>
             </div>
           </div>
 
